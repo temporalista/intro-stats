@@ -1,7 +1,9 @@
-ShinyEd
+Interactividades de Estadística 
 =======
+Basado en: ShinyEd/intro-stats
 
-Statistics education apps created in Shiny. Source code available on GitHub. 
+Interactividades de estadística con R creadas en Shinny. 
+
 
 - CLT_mean: [openintro.shinyapps.io/CLT_mean](https://openintro.shinyapps.io/CLT_mean/)]
 - CLT_prop: [openintro.shinyapps.io/CLT_prop](https://openintro.shinyapps.io/CLT_prop/)
