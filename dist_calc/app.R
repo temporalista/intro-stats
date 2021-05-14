@@ -18,19 +18,19 @@ defaults <- list(
 ui <- pageWithSidebar(
 
   # Title ----
-  headerPanel("Distribution Calculator"),
+  headerPanel("Calculadora de Distribución de Probabilidad"),
 
   # Sidebar ----
   sidebarPanel(
     selectInput(
       inputId = "dist",
-      label = "Distribution:",
+      label = "Distribución:",
       choices = c(
         "Normal" = "rnorm",
         "Binomial" = "rbinom",
         "t" = "rt",
         "F" = "rf",
-        "Chi-Squared" = "rchisq"
+        "Chi-Cuadrado" = "rchisq"
       ),
       selected = "rnorm"
     ),
@@ -47,8 +47,8 @@ ui <- pageWithSidebar(
     br(),
     br(),
 
-    helpText("Model:"),
-    div(textOutput("model"), style = "text-indent:20px;font-size:125%;"),
+    helpText("Modelo:"),
+    div(textOutput("modelo"), style = "text-indent:20px;font-size:125%;"),
     br(),
 
     uiOutput("tail"),
@@ -60,9 +60,8 @@ ui <- pageWithSidebar(
 
     br(),
 
-    helpText(a(href = "https://github.com/ShinyEd/ShinyEd/tree/master/dist_calc", target = "_blank", "View code")),
-    helpText(a(href = "http://shinyed.github.io/intro-stats", target = "_blank", "Check out other apps")),
-    helpText(a(href = "https://openintro.org", target = "_blank", "Learn more for free!"))
+    helpText(a(href="http://shinyed.github.io/intro-stats", target="_blank", "Basado en http://shinyed.github.io/intro-stats")),
+    helpText(a(href="https://github.com/temporalista/tutorestadistica", target="_blank", "Código y más tutoriales"))
     
   ),
 
@@ -79,13 +78,13 @@ server <- function(input, output) {
     if (input$dist == "rbinom") {
       selectInput(
         inputId = "tail",
-        label = "Find Area:",
+        label = "Encontrar el área:",
         choices = c(
-          "Lower Tail" = "lower",
-          "Upper Tail" = "upper",
-          "Both Tails" = "both",
-          "Middle" = "middle",
-          "Equality" = "equal"
+          "De la Cola Izquierda" = "lower",
+          "De la Cola Derecha" = "upper",
+          "De las dos Colas" = "both",
+          "En medio de las dos colas" = "middle",
+          "Igualdad" = "equal"
         ),
         selected = "lower"
       )
@@ -93,7 +92,7 @@ server <- function(input, output) {
     else if (input$dist == "rf" | input$dist == "rchisq") {
       selectInput(
         inputId = "tail",
-        label = "Find Area:",
+        label = "Encontrar el área de:",
         choices = c("Upper Tail" = "upper"),
         selected = "upper"
       )
@@ -101,12 +100,12 @@ server <- function(input, output) {
     else {
       selectInput(
         inputId = "tail",
-        label = "Find Area:",
+        label = "Encontrar el área de:",
         choices = c(
-          "Lower Tail" = "lower",
-          "Upper Tail" = "upper",
-          "Both Tails" = "both",
-          "Middle" = "middle"
+          "De la Cola Izquierda" = "lower",
+          "De la Cola Derecha" = "upper",
+          "De las dos Colas" = "both",
+          "En medio de las dos colas" = "middle"
         ),
         selected = "lower"
       )
@@ -125,7 +124,7 @@ server <- function(input, output) {
       if (input$tail %in% c("both", "middle")) {
         selectInput(
           inputId = "lower_bound",
-          label = "Lower bound:",
+          label = "Límite Inferior:",
           choices = c(
             "<" = "open",
             "\u2264" = "closed"
@@ -136,7 +135,7 @@ server <- function(input, output) {
       else if (input$tail == "lower") {
         selectInput(
           inputId = "lower_bound",
-          label = "Bound:",
+          label = "Límite:",
           choices = c(
             "<" = "open",
             "\u2264" = "closed"
@@ -147,7 +146,7 @@ server <- function(input, output) {
       else if (input$tail == "upper") {
         selectInput(
           inputId = "lower_bound",
-          label = "Bound:",
+          label = "Límite:",
           choices = c(
             ">" = "open",
             "\u2265" = "closed"
@@ -170,7 +169,7 @@ server <- function(input, output) {
       if (input$tail == "middle") {
         selectInput(
           inputId = "upper_bound",
-          label = "Upper bound:",
+          label = "Límite superior:",
           choices = c(
             "<" = "open",
             "\u2264" = "closed"
@@ -181,7 +180,7 @@ server <- function(input, output) {
       else if (input$tail == "both") {
         selectInput(
           inputId = "upper_bound",
-          label = "Upper bound:",
+          label = "Límite superior:",
           choices = c(
             ">" = "open",
             "\u2265" = "closed"
