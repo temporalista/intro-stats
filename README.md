@@ -1,6 +1,8 @@
 Interactividades de Estadística 
 =======
-Basado en: ShinyEd/intro-stats
+Basado en: 
+
+https://github.com/ShinyEd/intro-stats
 
 Interactividades de estadística con R creadas en Shinny. 
 
