@@ -18,7 +18,7 @@ defaults <- list(
 ui <- pageWithSidebar(
 
   # Title ----
-  headerPanel("Calculadora de Distribución de Probabilidad"),
+  headerPanel("Calculadora de Distribución de Probabilidades"),
 
   # Sidebar ----
   sidebarPanel(
