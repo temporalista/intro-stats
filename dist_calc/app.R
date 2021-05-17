@@ -45,13 +45,12 @@ ui <- pageWithSidebar(
     uiOutput("p"),
 
     br(),
-    br(),
 
     helpText("Modelo:"),
-    div(textOutput("modelo"), style = "text-indent:20px;font-size:125%;"),
+    div(textOutput("model"), style = "text-indent:20px;font-size:125%;"),
     br(),
-
     uiOutput("tail"),
+    helpText("Límites:"),
     uiOutput("lower_bound"),
     uiOutput("upper_bound"),
 
@@ -59,9 +58,18 @@ ui <- pageWithSidebar(
     uiOutput("b"),
 
     br(),
-
-    helpText(a(href="http://shinyed.github.io/intro-stats", target="_blank", "Basado en http://shinyed.github.io/intro-stats")),
-    helpText(a(href="https://github.com/temporalista/tutorestadistica", target="_blank", "Código y más tutoriales"))
+    
+    helpText("Daniel Orellana V.  \n
+             Universidad de Cuenca. 
+             Basado en:", 
+             a(href="http://shinyed.github.io/intro-stats", target="_blank", "http://shinyed.github.io/intro-stats"), 
+             style = "font-size:11px;"
+             ),
+    
+    helpText("Aplicación con fines académicos. El código y más tutoriales están disponibles en",
+             a(href="https://github.com/temporalista/tutorestadistica", target="_blank", "https://github.com/temporalista/tutorestadistica"),
+             style = "font-size:11px;"
+             )
     
   ),
 
@@ -78,7 +86,7 @@ server <- function(input, output) {
     if (input$dist == "rbinom") {
       selectInput(
         inputId = "tail",
-        label = "Encontrar el área:",
+        label = "Calcular el Área:",
         choices = c(
           "De la Cola Izquierda" = "lower",
           "De la Cola Derecha" = "upper",
@@ -92,7 +100,7 @@ server <- function(input, output) {
     else if (input$dist == "rf" | input$dist == "rchisq") {
       selectInput(
         inputId = "tail",
-        label = "Encontrar el área de:",
+        label = "Calcular el Área:",
         choices = c("Upper Tail" = "upper"),
         selected = "upper"
       )
@@ -100,12 +108,12 @@ server <- function(input, output) {
     else {
       selectInput(
         inputId = "tail",
-        label = "Encontrar el área de:",
+        label = "Calcular el Área:",
         choices = c(
-          "De la Cola Izquierda" = "lower",
-          "De la Cola Derecha" = "upper",
-          "De las dos Colas" = "both",
-          "En medio de las dos colas" = "middle"
+          "de la Cola Izquierda" = "lower",
+          "de la Cola Derecha" = "upper",
+          "de las dos Colas" = "both",
+          "en medio de las dos colas" = "middle"
         ),
         selected = "lower"
       )
@@ -267,11 +275,11 @@ server <- function(input, output) {
   output$mean <- renderUI({
     # print("mean")
     if (input$dist == "rnorm") {
-      sliderInput("mu",
-        "Mean",
+      numericInput("mu",
+        "Media",
         value = 0,
-        min = -50,
-        max = 50
+        min = -5000,
+        max = 5000
       )
     }
   })
@@ -279,12 +287,12 @@ server <- function(input, output) {
   output$sd <- renderUI({
     # print("sd")
     if (input$dist == "rnorm") {
-      sliderInput("sd",
-        "Standard deviation",
+      numericInput("sd",
+        "Desviación Estándar",
         value = 1,
-        min = 0.1,
-        max = 30,
-        step = 0.1
+        # min = 0.1,
+        # max = 50,
+        # step = 0.1
       )
     }
   })
@@ -412,7 +420,7 @@ server <- function(input, output) {
       step <- 1
     }
 
-    sliderInput("a", "a",
+    numericInput("a", "a",
       value = value,
       min = min,
       max = max,
@@ -472,7 +480,7 @@ server <- function(input, output) {
         step <- 1
       }
 
-      sliderInput("b", "b",
+      numericInput("b", "b",
         value = value,
         min = min,
         max = max,
